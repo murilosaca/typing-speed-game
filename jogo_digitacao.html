@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Digitação</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        input {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #stats {
+            margin-top: 20px;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Jogo de Digitação</h1>
+    <p id="wordToType">Pressione Iniciar</p>
+    <input type="text" id="userInput" placeholder="Digite a palavra">
+    <div id="stats">
+        <p id="score">Pontuação: 0</p>
+        <p id="accuracy">Precisão: 0%</p>
+        <p id="wordCount">Palavras: 0</p>
+        <p id="timer">Tempo restante: 60s</p>
+    </div>
+    <button id="startGame">Iniciar Jogo</button>
+    <button id="pauseGame">Pausar Jogo</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let phrases = [
+                "JavaScript é uma linguagem de programação.",
+                "HTML é utilizado para estruturar páginas web.",
+                "CSS é usado para estilizar páginas web.",
+                "Desenvolver aplicações web requer diversas habilidades.",
+                // Adicione mais frases conforme necessário
+            ];
+
+            let currentPhraseIndex;
+            let currentPhrase;
+            let score = 0;
+            let wordCount = 0;
+            let correctCount = 0;
+            let gameRunning = false;
+            let timer;
+
+            const wordToType = document.getElementById('wordToType');
+            const userInput = document.getElementById('userInput');
+            const startGameButton = document.getElementById('startGame');
+            const pauseGameButton = document.getElementById('pauseGame');
+            const scoreElement = document.getElementById('score');
+            const accuracyElement = document.getElementById('accuracy');
+            const wordCountElement = document.getElementById('wordCount');
+            const timerElement = document.getElementById('timer');
+
+            startGameButton.addEventListener('click', startGame);
+            pauseGameButton.addEventListener('click', pauseGame);
+            userInput.addEventListener('input', checkInput);
+
+            function startGame() {
+                if (!gameRunning) {
+                    gameRunning = true;
+                    score = 0;
+                    wordCount = 0;
+                    correctCount = 0;
+                    updateStats();
+                    getNextPhrase();
+                    startTimer();
+                }
+            }
+
+            function pauseGame() {
+                gameRunning = false;
+                clearInterval(timer);
+            }
+
+            function getNextPhrase() {
+                currentPhraseIndex = Math.floor(Math.random() * phrases.length);
+                currentPhrase = phrases[currentPhraseIndex];
+                wordToType.innerHTML = currentPhrase.split('').map(char => `<span>${char}</span>`).join('');
+                userInput.value = ''; // Limpa o campo de entrada
+                wordCount += currentPhrase.split(' ').length;
+                updateStats();
+            }
+
+            function startTimer() {
+                let seconds = 60;
+                timer = setInterval(function () {
+                    seconds--;
+                    if (seconds >= 0 && gameRunning) {
+                        timerElement.textContent = `Tempo restante: ${seconds}s`;
+                    } else {
+                        endGame();
+                        clearInterval(timer);
+                    }
+                }, 1000);
+            }
+
+            function checkInput() {
+                if (gameRunning) {
+                    const typedPhrase = userInput.value.trim();
+                    const wordsTyped = typedPhrase.split(' ');
+                    const wordsInPhrase = currentPhrase.split(' ');
+
+                    correctCount = 0;
+                    for (let i = 0; i < wordsTyped.length; i++) {
+                        const charSpan = wordToType.childNodes[i];
+                        if (wordsTyped[i] === wordsInPhrase[i]) {
+                            correctCount++;
+                            charSpan.className = 'correct';
+                        } else {
+                            charSpan.className = 'incorrect';
+                        }
+                    }
+
+                    updateStats();
+
+                    if (typedPhrase === currentPhrase) {
+                        score += correctCount;
+                        getNextPhrase();
+                    }
+                }
+            }
+
+            function updateStats() {
+                scoreElement.textContent = `Pontuação: ${score}`;
+                const accuracy = wordCount === 0 ? 0 : Math.round((correctCount / wordCount) * 100);
+                accuracyElement.textContent = `Precisão: ${accuracy}%`;
+                wordCountElement.textContent = `Palavras: ${wordCount}`;
+            }
+
+            function endGame() {
+                gameRunning = false;
+                timerElement.textContent = 'Jogo encerrado';
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 500px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+input {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#estatisticas {
+    margin-top: 20px;
+}
+
+#tempo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#resultado {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.correto {
+    color: green;
+}
+
+.incorreto {
+    color: red;
+}
+
+#placar {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#roundScore {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#placarFinal {
+    margin-top: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    display: none;
+}
+
+#reiniciar {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: none;
+}
+

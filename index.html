@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Desafio de Digitação</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Desafio de Digitação</h1>
+        <p>Seu objetivo é digitar a frase corretamente no menor tempo possível.</p>
+        <p id="texto"></p>
+        <input type="text" id="textoDigitado" disabled>
+        <br>
+        <button id="botaoIniciar">Iniciar</button>
+        <br>
+        <div id="stats">
+            <p id="cronometro">01:00</p>
+            <p id="ppm">0 palavras por minuto</p>
+            <p id="precisao">0% de precisão</p>
+        </div>
+        <p id="resultado"></p>
+        <div id="pontuacao">Pontuação: 0</div>
+        <div id="placar"></div>
+        <div id="placarFinal"></div>
+        <button id="reiniciar">Reiniciar</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

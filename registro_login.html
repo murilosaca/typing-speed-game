@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro e Login</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 500px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 30px;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        p {
+            margin-top: 10px;
+        }
+
+        a {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        
+        <form id="registerForm">
+            <h1>Registro</h1>
+            <label for="username">Nome de Usuário:</label>
+            <input type="text" id="username" name="username" required>
+            <br>
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+            <br>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Registrar</button>
+                    <p>Já possui uma conta? <a href="javascript:void(0);" onclick="showLogin()">Faça login</a></p>
+
+        </form>
+    </div>
+
+    <div class="container" style="display: none;" id="loginContainer">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <label for="loginUsername">Nome de Usuário:</label>
+            <input type="text" id="loginUsername" name="loginUsername" required>
+
+            <label for="loginPassword">Senha:</label>
+            <input type="password" id="loginPassword" name="loginPassword" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+        <p>Não tem uma conta? <a href="javascript:void(0);" onclick="showRegister()">Registre-se</a></p>
+    </div>
+
+    <script>
+        function showLogin() {
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginContainer').style.display = 'block';
+        }
+
+        function showRegister() {
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('loginContainer').style.display = 'none';
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Implemente a lógica para enviar os dados ao backend para registro
+            console.log('Registrando usuário:', { username, email, password });
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const loginUsername = document.getElementById('loginUsername').value;
+            const loginPassword = document.getElementById('loginPassword').value;
+
+            // Implemente a lógica para enviar os dados ao backend para autenticação
+            console.log('Autenticando usuário:', { loginUsername, loginPassword });
+        });
+    </script>
+</body>
+
+</html>
